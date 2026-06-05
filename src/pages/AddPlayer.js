@@ -3,11 +3,11 @@ import api from "../api/axiosConfig";
 
 function AddPlayer(){
     const[player,setPlayer]=useState({
-        name="",
-        country="",
-        age="",
-        fideRating="",
-        experienceYears=""
+        name:"",
+        country:"",
+        age:"",
+        fideRating:"",
+        experienceYears:""
     });
     const handleChange=(e)=>{
         setPlayer({
