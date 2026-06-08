@@ -1,8 +1,13 @@
 import { AppBar,Toolbar,Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar(){
+    const navigate=useNavigate();
+    const logout=()=>{localStorage.removeItem("token");
+        navigate("/");
+    };
     return(
+        
         <AppBar position="static">
             
             <Toolbar>
@@ -13,9 +18,10 @@ function Navbar(){
                 <Button color="inherit" component={Link} to="/add-Player">
                     Add Player
                 </Button>
-                <Button color="inherit" component={Link} to ="/">
+                <Button color="inherit" onClick={logout}>
                     Logout
                 </Button>
+                
             </Toolbar>
         </AppBar>
     );

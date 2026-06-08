@@ -1,11 +1,14 @@
 import React,{useEffect,useState} from "react";
 import api from "../api/axiosConfig"
-import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container,Modal,Box, TextField} from "@mui/material";
+import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container,Modal,Box, TextField, Divider} from "@mui/material";
 
 function Players(){
     const[players,setPlayers]=useState([]);
     const[selectedPlayer,setSelectedPlayer]=useState(null);
     const [open,setOpen]=useState(false);
+    const [search,setSearch]=useState("");
+    const [country,setCountry]=useState("");
+    const[level,setLevel]=useState("");
 
     useEffect(()=>{
         loadPlayers();},[]
@@ -33,9 +36,31 @@ function Players(){
         await api.delete(`/api/Players/${id}`);
         loadPlayers();
     };
+    const filteredPlayers=players.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase));
     return(
         <Container style={{marginTop:"40px"}}>
+            
             <h2>Player List</h2>
+            <div style={{marginBottom:"20px"}}>
+                <input placeholder="Search by name" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+                <select>
+                    <option value="">All Cuntries</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Srilanka">Srilanka</option>
+                    <option value="USA">USA</option>
+                </select>
+
+                <select onChange={(e)=>setLevel(e.target.value)}>
+                    <option value="">All Levels</option>
+                    <option value="BEGINNER">BEGINNER</option>
+                    <option value="INTERMEDIATE">INTERMEDIATE</option>
+                    <option value="EXPERT">EXPERT</option>
+
+                </select>
+                <button onClick={()=>loadPlayers()}>
+                    Reset
+                </button>
+            </div>
             <Table>
                 <TableHead>
                     <TableRow>
