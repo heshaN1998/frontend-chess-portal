@@ -37,7 +37,7 @@ function AddPlayer(){
             <TextField label="Country" name="country" onChange={handleChange} fullWidth/>
             <TextField label="Age" name="age" onChange={handleChange} fullWidth/>
             <TextField label="FIDE Rating" name="d-fideRating" onChange={handleChange} fullWidth/>
-            <TextField label="Experienced Year" name="experienceYear" onChange={handleChange} fullWidth/>
+            <TextField label="Experienced Year" name="experienceYears" onChange={handleChange} fullWidth/>
             <TextField label="Level(BEGINNER|INTERMEDIATE|EXPERT" name="level" onChange={handleChange} fullWidth/>
 
             <Button variant="contained" color="primary" onClick={savePlayer}>

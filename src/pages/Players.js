@@ -1,12 +1,29 @@
 import React,{useEffect,useState} from "react";
 import api from "../api/axiosConfig"
-import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container } from "@mui/material";
+import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container,Modal,Box, TextField} from "@mui/material";
 
 function Players(){
     const[players,setPlayers]=useState([]);
+    const[selectedPlayer,setSelectedPlayer]=useState(null);
+    const [open,setOpen]=useState(false);
+
     useEffect(()=>{
         loadPlayers();},[]
     );
+    const handleEdit=(player)=>{
+        setSelectedPlayer(player);
+        setOpen(true);
+    }
+    const handleChange=(e)=>{
+        setSelectedPlayer({
+            ...selectedPlayer,[e.target.name]:e.target.value
+        });
+    };
+    const updatePlayer=async()=>{
+        await api.put(`/api/Players/${selectedPlayer.id}`,selectedPlayer);
+        setOpen(false)
+        loadPlayers();
+    }
 
     const loadPlayers=async()=>{
         const res=await api.get("/api/Players");
@@ -24,22 +41,35 @@ function Players(){
                     <TableRow>
                         <TableCell>Name</TableCell>
                         <TableCell>Country</TableCell>
-                        <TableCell>Rating</TableCell>
-                        <TableCell>Action</TableCell>
+                        <TableCell>FIDE Rating</TableCell>
+                        <TableCell>Level</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {Players.map((p)=>(<TableRow>
+                    {players.map((p)=>(<TableRow  key={p.id}>
                         <TableCell>{p.name}</TableCell>
                         <TableCell>{p.country}</TableCell>
                         <TableCell>{p.fideRating}</TableCell>
                         <TableCell>
+                                         <Button color="primary" onClick={()=>handleEdit(p)}>Edit Details</Button>
                             <Button color="error" onClick={()=>deletePlayer(p.id)}>Delete</Button>
                         </TableCell>
                     </TableRow>))}
+                
                 </TableBody>
             </Table>
-
+            <Modal open={open} onClose={()=>setOpen(false)}>
+                <Box sx={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:400,bgcolor:"white",p:3,boxShadow:24}}>
+                        <h3>Edit Player Details</h3>
+                
+                <TextField fullWidth name="name" value={selectedPlayer?.name|| ""} onChange={handleChange} margin="normal"/>
+                <TextField fullWidth name="country" value={selectedPlayer?.country|| ""} onChange={handleChange} margin="normal"/>
+                <TextField fullWidth name="fideRating" value={selectedPlayer?.fideRating|| ""} onChange={handleChange} margin="normal"/>
+                <TextField fullWidth name="experienceYears" value={selectedPlayer?.experienceYears|| ""} onChange={handleChange} margin="normal"/>
+                <Button variant="contained" onClick={updatePlayer}>Update</Button>
+            
+            </Box>
+            </Modal>
         </Container>
     );
 }
