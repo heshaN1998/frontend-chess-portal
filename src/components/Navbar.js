@@ -1,4 +1,4 @@
-import { AppBar,Toolbar,Button } from "@mui/material";
+import { AppBar,Toolbar,Button, Typography, BottomNavigationAction, Box, Autocomplete } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar(){
@@ -10,7 +10,16 @@ function Navbar(){
         
         <AppBar position="static">
             
-            <Toolbar>
+            <Toolbar >
+            <Typography sx={{fontFamily:"math", fontSize:"36px"}}>♞Chess Portal</Typography>
+            <Box sx={{marginLeft:"auto",display:"flex", fontFamily:"monospace"}}>
+                <Button
+                    color="inherit"
+                    component="a"
+                    href="https://lichess.org"
+                    target="_blank">
+                    Lichess
+                </Button>
                 <Button color="inherit" component={Link} to ="/dashbord">
                     Dashbord
                 </Button>
@@ -27,6 +36,7 @@ function Navbar(){
                 <Button color="inherit" onClick={logout}>
                     Logout
                 </Button>
+                </Box>
                 
             </Toolbar>
         </AppBar>

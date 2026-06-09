@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from "react"
 import api from "../api/axiosConfig"
-import { Container,Card,Typography } from "@mui/material"
+import { Skeleton,CircularProgress,Container,Card,Typography,Box } from "@mui/material"
 
 function Dashbord(){
     const[stats,setStats]=useState(null);
@@ -13,7 +13,17 @@ const loadStats=async()=>{
     const res=await api.get("/api/dashbord/stats");
     setStats(res.data);
 };
-if(!stats) return<Typography style={{fontFamily:"cursive"}}>Dashbord is Loading....</Typography>
+// if(!stats) return<Typography style={{fontFamily:"cursive"}}>Dashbord is Loading....</Typography>
+if(!stats){
+    return(
+        <Box sx={{ margin: 4 }}>
+            <Skeleton variant="text" width={200} height={40} />
+            <Skeleton variant="rectangular" height={100} sx={{ marginTop: 2 }} />
+            <Skeleton variant="rectangular" height={100} sx={{ marginTop: 2 }} />
+            <Skeleton variant="rectangular" height={100} sx={{ marginTop: 2 }} />
+        </Box>
+);
+}
 return(
 <Container style={{margin:"40px"}}>
     <Typography>

@@ -107,6 +107,7 @@ function Players(){
             </Box>
             </Modal>
         </Container>
+        
     );
 }
 export default Players;
