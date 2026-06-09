@@ -6,6 +6,7 @@ import AddPlayer from './pages/AddPlayer';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Navbar from './components/Navbar';
 import Register from './pages/Register';
+import Dashbord from './pages/Dashbord';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/players" element={<Players/>}/>
       <Route path="/add-Player" element={<AddPlayer/>}/>
       <Route path="/register" element={<Register/>}/>
+      <Route path="/dashbord" element={<Dashbord/>}/>
     </Routes>
     </BrowserRouter>
   );

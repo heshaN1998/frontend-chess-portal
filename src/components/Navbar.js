@@ -11,6 +11,9 @@ function Navbar(){
         <AppBar position="static">
             
             <Toolbar>
+                <Button color="inherit" component={Link} to ="/dashbord">
+                    Dashbord
+                </Button>
                 <Button color="inherit" component={Link} to ="/Players">
                     Player
                 </Button>
