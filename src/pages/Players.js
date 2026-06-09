@@ -18,9 +18,9 @@ function Players(){
         setOpen(true);
     }
     const handleChange=(e)=>{
-        setSelectedPlayer({
-            ...selectedPlayer,[e.target.name]:e.target.value
-        });
+        setSelectedPlayer((prev)=>({
+            ...prev,[e.target.name]:e.target.value
+        }));
     };
     const updatePlayer=async()=>{
         await api.put(`/api/Players/${selectedPlayer.id}`,selectedPlayer);
@@ -36,14 +36,16 @@ function Players(){
         await api.delete(`/api/Players/${id}`);
         loadPlayers();
     };
-    const filteredPlayers=players.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase));
+    const filteredPlayers=players.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase()))
+    .filter((p)=>(country? p.country===country:true))
+    .filter((p)=>(level? p.level===level:true));
     return(
         <Container style={{marginTop:"40px"}}>
             
             <h2>Player List</h2>
             <div style={{marginBottom:"20px"}}>
                 <input placeholder="Search by name" value={search} onChange={(e)=>setSearch(e.target.value)}/>
-                <select>
+                <select onChange={(e)=>setCountry(e.target.value)}>
                     <option value="">All Cuntries</option>
                     <option value="Norway">Norway</option>
                     <option value="Srilanka">Srilanka</option>
@@ -68,16 +70,21 @@ function Players(){
                         <TableCell>Country</TableCell>
                         <TableCell>FIDE Rating</TableCell>
                         <TableCell>Level</TableCell>
+                        <TableCell>Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {players.map((p)=>(<TableRow  key={p.id}>
+                    {filteredPlayers.map((p)=>(<TableRow  key={p.id}>
                         <TableCell>{p.name}</TableCell>
                         <TableCell>{p.country}</TableCell>
                         <TableCell>{p.fideRating}</TableCell>
-                        <TableCell>
-                                         <Button color="primary" onClick={()=>handleEdit(p)}>Edit Details</Button>
+                        <TableCell>{p.level}</TableCell>
+                        
+
+                        <TableCell sx={{display:"flex",gap:1}}>
+                            <Button color="primary" onClick={()=>handleEdit(p)}>Edit Details</Button>
                             <Button color="error" onClick={()=>deletePlayer(p.id)}>Delete</Button>
+                            
                         </TableCell>
                     </TableRow>))}
                 
@@ -87,12 +94,16 @@ function Players(){
                 <Box sx={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:400,bgcolor:"white",p:3,boxShadow:24}}>
                         <h3>Edit Player Details</h3>
                 
+                {selectedPlayer &&(
+                    <>
                 <TextField fullWidth name="name" value={selectedPlayer?.name|| ""} onChange={handleChange} margin="normal"/>
                 <TextField fullWidth name="country" value={selectedPlayer?.country|| ""} onChange={handleChange} margin="normal"/>
                 <TextField fullWidth name="fideRating" value={selectedPlayer?.fideRating|| ""} onChange={handleChange} margin="normal"/>
                 <TextField fullWidth name="experienceYears" value={selectedPlayer?.experienceYears|| ""} onChange={handleChange} margin="normal"/>
                 <Button variant="contained" onClick={updatePlayer}>Update</Button>
-            
+                </>
+                )}
+                
             </Box>
             </Modal>
         </Container>

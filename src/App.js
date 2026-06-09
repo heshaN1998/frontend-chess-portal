@@ -16,7 +16,7 @@ function App() {
       <Route path="/" element={<Login/>}/>
       <Route path="/players" element={<Players/>}/>
       <Route path="/add-Player" element={<AddPlayer/>}/>
-      <Route path="register" element={<Register/>}/>
+      <Route path="/register" element={<Register/>}/>
     </Routes>
     </BrowserRouter>
   );

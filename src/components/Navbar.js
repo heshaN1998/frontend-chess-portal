@@ -18,6 +18,9 @@ function Navbar(){
                 <Button color="inherit" component={Link} to="/add-Player">
                     Add Player
                 </Button>
+                <Button color="inherit" component={Link} to="/register">
+                    Register
+                </Button>
                 <Button color="inherit" onClick={logout}>
                     Logout
                 </Button>

@@ -26,6 +26,7 @@ function AddPlayer(){
         navigate("/Players");
         
         
+        
     };
     return(
         <Container maxWidth="sm" style={{ margin:"40px" }}>
