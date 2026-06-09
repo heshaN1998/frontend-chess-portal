@@ -1,10 +1,11 @@
 import React,{useState} from "react"
 import api from "../api/axiosConfig"
-import { TextField,Button,Container,Typography } from "@mui/material";
+import { TextField,Button,Container,Typography,Card,CardContent,Box } from "@mui/material";
 
 function Login(){
-    const[userName,setUserName]=useState("");
-    const[password,setPassword]=useState("");
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+
 
     const loginHandle=async()=>{
         try {
@@ -16,13 +17,19 @@ function Login(){
         }
     };
     return(
-        <Container maxWidth="sm" style={{marginTop:"100px"}}>
-            <Typography variant="h4" gutterBottom>
+            <Container maxWidth="sm">
+             <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+                <Card sx={{width:"100%",padding:2}}>
+                    <CardContent>
+            <Typography variant="h4" gutterBottom textAlign="center">
                 Chess Portal Login
             </Typography>
-                <TextField fullWidth label="userName" margin="normal" onChange={(e)=>setUserName(e.target.value)}/>
-                <TextField fullWidth label="password" type="password" margin="normal" onChange={(e)=>setPassword(e.target.value)}/>
-                <Button fullWidth variant="contained" onClick={loginHandle}>Login</Button>
+                <TextField fullWidth label="User Name"  value={userName} margin="normal" onChange={(e)=>setUserName(e.target.value)}/>
+                <TextField fullWidth label="Password" type="password" value={password} margin="normal" onChange={(e)=>setPassword(e.target.value)}/>
+                <Button sx={{marginTop:2}} fullWidth variant="contained" onClick={loginHandle}>Login</Button>
+            </CardContent>
+            </Card>
+            </Box>
             </Container>
 
     );
