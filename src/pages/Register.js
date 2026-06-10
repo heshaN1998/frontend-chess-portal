@@ -18,7 +18,7 @@ const handleChange=(e)=>{
 };
 const register =async()=>{
     try{
-        await api.post("/auth/register",user);
+        await api.post("/auth/security/register",user);
         alert("Registered Success");
         navigate("/");
     }

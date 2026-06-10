@@ -5,7 +5,7 @@ import Players from './pages/Players';
 import AddPlayer from './pages/AddPlayer';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Navbar from './components/Navbar';
-import Register from './pages/Register';
+import Register from './pages/Register'
 import Dashbord from './pages/Dashbord';
 import Footer from './components/Footer';
 

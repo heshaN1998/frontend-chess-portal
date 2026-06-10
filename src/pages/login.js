@@ -9,7 +9,7 @@ function Login(){
 
     const loginHandle=async()=>{
         try {
-            const res=await api.post("/auth/login",{userName,password});
+            const res=await api.post("/auth/security/login",{userName,password});
             localStorage.setItem("token",res.data);
             alert("Login Successfuly");
         } catch (error) {

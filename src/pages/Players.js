@@ -9,6 +9,7 @@ function Players(){
     const [search,setSearch]=useState("");
     const [country,setCountry]=useState("");
     const[level,setLevel]=useState("");
+     const[stats,setStats]=useState(null);
 
     useEffect(()=>{
         loadPlayers();},[]
@@ -23,17 +24,23 @@ function Players(){
         }));
     };
     const updatePlayer=async()=>{
-        await api.put(`/api/Players/${selectedPlayer.id}`,selectedPlayer);
+        await api.put(`/api/players/${selectedPlayer.id}`,selectedPlayer);
         setOpen(false)
         loadPlayers();
     }
 
     const loadPlayers=async()=>{
-        const res=await api.get("/api/Players");
-        setPlayers(res.data);
+        try{
+        const res=await api.get("/api/players");
+        setPlayers(res.data);}
+        catch(error){
+            console.log("Status:",error.response?.stats);
+            console.log("Data:",error.response?.data);
+            console.log(error);
+        }
     };
     const deletePlayer=async(id)=>{
-        await api.delete(`/api/Players/${id}`);
+        await api.delete(`/api/players/${id}`);
         loadPlayers();
     };
     const filteredPlayers=players.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase()))

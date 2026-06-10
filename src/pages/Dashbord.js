@@ -10,8 +10,14 @@ function Dashbord(){
     
 
 const loadStats=async()=>{
-    const res=await api.get("/api/dashbord/stats");
-    setStats(res.data);
+    try{
+    const res=await api.get("/api/dashbord");
+    setStats(res.data);}
+    catch(err){
+        console.log("Status:",err.response?.stats);
+        console.log("Data:",err.response?.data);
+        console.log("Message:",err.response?.message);
+    }
 };
 // if(!stats) return<Typography style={{fontFamily:"cursive"}}>Dashbord is Loading....</Typography>
 if(!stats){

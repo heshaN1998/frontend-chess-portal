@@ -21,7 +21,7 @@ function AddPlayer(){
     };
     const savePlayer=async()=>{
         
-        await api.post("/api/Players",player);
+        await api.post("/api/players",player);
         alert("Player Saved");
         navigate("/Players");
         
