@@ -13,7 +13,7 @@ function Login(){
             const res=await api.post("/auth/security/login",{userName,password});
             localStorage.setItem("token",res.data);
             alert("Login Successfuly");
-            navigate("/dashboard");
+            navigate("/dashbord");
         } catch (error) {
             alert("Login failed")
         }

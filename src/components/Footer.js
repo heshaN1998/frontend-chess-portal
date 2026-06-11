@@ -3,6 +3,24 @@ import{ Link as RouterLink } from "react-router-dom";
 
 
 function Footer() {
+  const handleShare =async()=> {
+    const shareData={
+      title:"Chess Portal",
+      text:"Check out this Unique Poral",
+      url:window.location.origin
+    };
+    try{
+      if(navigator.share){
+        await navigator.share(shareData)
+      }
+      else{
+        await navigator.clipboard.writeText(shareData.url);
+        alert("Link Copied");
+      }
+        }catch(error){
+        alert("Sharing failed");
+      }
+  };
   return (
     <Box
       sx={{
@@ -76,6 +94,7 @@ function Footer() {
             href="#"
             underline="none"
             color="inherit"
+            onClick={handleShare}
             sx={{
               mx: 2,
               fontWeight: 500,
@@ -85,7 +104,7 @@ function Footer() {
               },
             }}
           >
-            Share Friends
+            ShareFriends 
           </MuiLink>
         </Box>
       </Box>

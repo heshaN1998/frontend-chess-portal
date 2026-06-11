@@ -34,7 +34,7 @@ function AboutUs(){
                     <Typography variant="body1" paragraph>
                     Our Goal is to build a security,flexible and simple chess comunity platform.
                     </Typography>
-                    <TableContainer>
+                    <TableContainer component={Paper} sx={{ mt: 3 }}>
                         <TableHead>
                             <TableRow>
                                 <TableCell><Typography variant="h6">Category</Typography></TableCell>
