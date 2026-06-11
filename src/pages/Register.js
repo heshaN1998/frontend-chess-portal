@@ -8,7 +8,7 @@ const navigate=useNavigate();
 
 const[user,setUser]=useState({
     userName:"",
-    passwoad:""
+    password:""
 });
 
 const handleChange=(e)=>{
@@ -34,7 +34,7 @@ return(
         </Typography>
         <Box display="flex" flexDirection="column" gap={2}>
             <TextField fullWidth label="User Name" name="userName" margin="normal" onChange={handleChange}/>
-            <TextField fullWidth label="Password" type="password" name="passwoad" margin="normal" onChange={handleChange}/>
+            <TextField fullWidth label="Password" type="password" name="password" margin="normal" onChange={handleChange}/>
             <Button fullWidth variant="contained" sx={{margin:2}} onClick={register}>Register</Button>
         </Box>
     </Container>

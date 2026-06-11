@@ -1,4 +1,6 @@
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
+import{ Link as RouterLink } from "react-router-dom";
+
 
 function Footer() {
   return (
@@ -37,8 +39,9 @@ function Footer() {
 
         {/* Links */}
         <Box sx={{display:"flex",justifyContent:"flex-end"}}>
-          <Link
-            href="#"
+          <MuiLink
+            component={RouterLink}
+            to="/aboutUs"
             underline="none"
             color="inherit"
             sx={{
@@ -51,9 +54,9 @@ function Footer() {
             }}
           >
             About Us
-          </Link>
+          </MuiLink>
 
-          <Link
+          <MuiLink
             href="https://www.chess.com"
             underline="none"
             color="inherit"
@@ -67,9 +70,9 @@ function Footer() {
             }}
           >
             Chess.com
-          </Link>
+          </MuiLink>
 
-          <Link
+          <MuiLink
             href="#"
             underline="none"
             color="inherit"
@@ -83,7 +86,7 @@ function Footer() {
             }}
           >
             Share Friends
-          </Link>
+          </MuiLink>
         </Box>
       </Box>
     </Box>

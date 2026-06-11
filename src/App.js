@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Register from './pages/Register'
 import Dashbord from './pages/Dashbord';
 import Footer from './components/Footer';
+import AboutUs from './pages/AboutUs';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/register" element={<Register/>}/>
       <Route path="/dashbord" element={<Dashbord/>}/>
       {/* <Route path="/footer" element={<Footer/>}/> */}
+      <Route path="/aboutUs" element={<AboutUs/>}/>
     </Routes>
     </div>
     <Footer />
