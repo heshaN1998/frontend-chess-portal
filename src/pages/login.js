@@ -11,7 +11,7 @@ function Login(){
     const loginHandle=async()=>{
         try {
             const res=await api.post("/auth/security/login",{userName,password});
-            localStorage.setItem("token",res.data);
+            localStorage.setItem("token",res.data.token);
             alert("Login Successfuly");
             navigate("/dashbord");
         } catch (error) {

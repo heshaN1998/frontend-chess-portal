@@ -75,7 +75,7 @@ function Footer() {
           </MuiLink>
 
           <MuiLink
-            href="https://www.chess.com"
+            href="https://www.chess.com/news"
             underline="none"
             color="inherit"
             sx={{

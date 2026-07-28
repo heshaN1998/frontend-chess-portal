@@ -1,6 +1,10 @@
 import React,{useEffect,useState} from "react";
-import api from "../api/axiosConfig"
-import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container,Modal,Box, TextField, Divider} from "@mui/material";
+import api,{API_BASE_URL} from "../api/axiosConfig"
+import { Table,TableHead,TableRow,TableCell,TableBody,Button,Container,Modal,Box, TextField, Divider, Avatar, CircularProgress} from "@mui/material";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+
+
+const getPhotoUrl=(profilePictureUrl)=>profilePictureUrl? `${API_BASE_URL}${profilePictureUrl}`:undefined;
 
 function Players(){
     const[players,setPlayers]=useState([]);
@@ -10,6 +14,29 @@ function Players(){
     const [country,setCountry]=useState("");
     const[level,setLevel]=useState("");
      const[stats,setStats]=useState(null);
+    const[uploading,setUploading]=useState(false);
+
+    const uploadPhoto=async(file)=>{
+        if(!file || !selectedPlayer) return;
+        const formData=new FormData();
+        formData.append("file",file);
+        try{
+            setUploading(true);
+            const res=await api.post(`/api/players/${selectedPlayer.id}/photo`,formData,{
+                headers:{"Content-Type":"multipart/form-data"}
+            });
+            setSelectedPlayer(res.data);
+            loadPlayers();
+        }catch(error){
+            alert(error.response?.data?.message || "Failed to upload photo");
+        }finally{
+            setUploading(false);
+        }
+    };
+
+    const handlePhotoChange=(e)=>{
+        uploadPhoto(e.target.files[0]);
+    };
 
     useEffect(()=>{
         loadPlayers();},[]
@@ -34,7 +61,7 @@ function Players(){
         const res=await api.get("/api/players");
         setPlayers(res.data);}
         catch(error){
-            console.log("Status:",error.response?.stats);
+            console.log("Status:",error.response?.status);
             console.log("Data:",error.response?.data);
             console.log(error);
         }
@@ -73,6 +100,7 @@ function Players(){
             <Table>
                 <TableHead>
                     <TableRow>
+                        <TableCell>Photo</TableCell>
                         <TableCell>Name</TableCell>
                         <TableCell>Country</TableCell>
                         <TableCell>FIDE Rating</TableCell>
@@ -82,6 +110,9 @@ function Players(){
                 </TableHead>
                 <TableBody>
                     {filteredPlayers.map((p)=>(<TableRow  key={p.id}>
+                        <TableCell>
+                            <Avatar src={getPhotoUrl(p.profilePictureUrl)}>{p.name?.[0]}</Avatar>
+                        </TableCell>
                         <TableCell>{p.name}</TableCell>
                         <TableCell>{p.country}</TableCell>
                         <TableCell>{p.fideRating}</TableCell>
@@ -103,6 +134,15 @@ function Players(){
                 
                 {selectedPlayer &&(
                     <>
+                <Box display="flex" flexDirection="column" alignItems="center" gap={1} mb={2}>
+                    <Avatar src={getPhotoUrl(selectedPlayer.profilePictureUrl)} sx={{width:80,height:80}}>
+                        {selectedPlayer.name?.[0]}
+                    </Avatar>
+                    <Button component="label" size="small" startIcon={uploading? <CircularProgress size={16}/> : <PhotoCameraIcon/>} disabled={uploading}>
+                        {uploading? "Uploading...":"Change Photo"}
+                        <input type="file" hidden accept="image/png, image/jpeg, image/webp" onChange={handlePhotoChange}/>
+                    </Button>
+                </Box>
                 <TextField fullWidth name="name" value={selectedPlayer?.name|| ""} onChange={handleChange} margin="normal"/>
                 <TextField fullWidth name="country" value={selectedPlayer?.country|| ""} onChange={handleChange} margin="normal"/>
                 <TextField fullWidth name="fideRating" value={selectedPlayer?.fideRating|| ""} onChange={handleChange} margin="normal"/>

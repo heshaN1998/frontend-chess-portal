@@ -16,7 +16,7 @@ function Navbar(){
                 <Button
                     color="inherit"
                     component="a"
-                    href="https://lichess.org"
+                    href="https://lichess.org/@/Lichess/blog"
                     target="_blank">
                     Lichess
                 </Button>
